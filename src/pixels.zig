@@ -483,7 +483,7 @@ pub const Format = struct {
             self.value,
         );
         if (ret == null)
-            return null;
+            return error.SdlError;
         return FormatDetails.fromSdl(ret.*);
     }
 };
@@ -745,7 +745,7 @@ pub const FormatDetails = struct {
     /// Convert to an SDL value.
     pub fn toSdl(self: FormatDetails) C.SDL_PixelFormatDetails {
         return .{
-            .format = if (self.format == null) C.SDL_PIXELFORMAT_UNKNOWN else self.format,
+            .format = if (self.format == null) C.SDL_PIXELFORMAT_UNKNOWN else self.format.?.value,
             .bits_per_pixel = @intCast(self.bits_per_pixel),
             .bytes_per_pixel = @intCast(self.bytes_per_pixel),
             .Rmask = @intCast(self.r_mask),

@@ -945,7 +945,7 @@ pub const Surface = struct {
     ) ?pixels.Format {
         if (self.value.format == C.SDL_PIXELFORMAT_UNKNOWN)
             return null;
-        return pixels.Format.fromSdl(self.value.format);
+        return pixels.Format{ .value = self.value.format };
     }
 
     /// Get the surface width.
